@@ -6,6 +6,10 @@ import org.testng.annotations.Test;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
 public class TestExample {
 
 	@Test
@@ -26,5 +30,30 @@ public class TestExample {
 		Assert.assertEquals(actualStatusCode, 200);
 		
 	}
+	
+	
+	@Test
+	public void test_2() {
+		
+		// Using Static Imports
+		baseURI="https://reqres.in/api"; // store API
+		
+		given().get("/users?page=2")  // call specific 
+		.then().
+			statusCode(200).			// check status Code
+		body("data[3].id",equalTo(10))  // validate ID Value
+			.log().all();				// Print All Json format in Console
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
